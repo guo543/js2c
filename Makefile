@@ -59,4 +59,4 @@ $(OBJDIR)/%.o: src/%.cc
 
 .PHONY: clean
 clean:
-	rm -f $(LIBJS2C_OBJS) $(JS2C_OBJS) $(SCANNER_SRCS_L_GEN) $(addprefix $(OUTDIR)/, $(TARGETS))
+	rm -f $(LIBJS2C_OBJS) $(JS2C_OBJS) $(SCANNER_SRCS_L_GEN) $(OUTDIR)/${LIBJS2C}.a $(OUTDIR)/${JS2C}
