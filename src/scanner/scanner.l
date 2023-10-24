@@ -1,5 +1,8 @@
 %{
   #include <cstdio>
+  #include "src/scanner/token.h"
+
+  using namespace js2c::scanner;
 %}
 
 %option noyywrap
@@ -38,6 +41,7 @@ string_literal a
 
 "break" {
   printf("<break>");
+  return Token::BREAK;
 }
 
 "for" {

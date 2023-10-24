@@ -5,9 +5,9 @@ OBJDIR = $(OUTDIR)/objs
 
 CXXDEBUG = -g
 INCDIR = -I.
-LIBDIR = -L. -L$(OUTDIR)
+LIBDIR = -L$(OUTDIR)
 LDLIBS = -lfl -ljs2c
-CXXFLAGS = -Wall
+CXXFLAGS = -Wall -Werror -std=c++11
 
 AR = ar
 ARFLAGS = rcs
@@ -49,7 +49,7 @@ $(LIBJS2C): $(LIBJS2C_OBJS)
 
 $(JS2C): $(JS2C_OBJS)
 	@mkdir -p $(OBJDIRS)
-	$(CXX) $(INCDIR) $(LIBDIR) $(CXXFLAGS) $(CXXDEBUG) -o $(OUTDIR)/$@ $^ $(LDLIBS)
+	$(CXX) $(INCDIR) $(LIBDIR) $(CXXFLAGS) -o $(OUTDIR)/$@ $^ $(LDLIBS)
 
 $(SCANNER_SRCS_L_GEN): $(SCANNER_SRCS_L)
 	$(FLEX) -o $@ $(LFLAGS) $^
