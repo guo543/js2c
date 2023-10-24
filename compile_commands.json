@@ -1,0 +1,17 @@
+[
+  {
+    "directory": "/home/ranguo1108/projects/js2c",
+    "command": "g++ -I. -Wall -g -c -o out/objs/scanner/scanner.o src/scanner/scanner.cc",
+    "file": "src/scanner/scanner.cc"
+  },
+  {
+    "directory": "/home/ranguo1108/projects/js2c",
+    "command": "g++ -I. -Wall -g -c -o out/objs/scanner/flex_lexer.o src/scanner/flex_lexer.cc",
+    "file": "src/scanner/flex_lexer.cc"
+  },
+  {
+    "directory": "/home/ranguo1108/projects/js2c",
+    "command": "g++ -I. -Wall -g -c -o out/objs/js2c/js2c.o src/js2c/js2c.cc",
+    "file": "src/js2c/js2c.cc"
+  }
+]
