@@ -1,11 +1,17 @@
 %{
-  #include <cstdio>
-  #include "src/scanner/token.h"
+#include <cstdio>
+#include "src/scanner/scanner.h"
 
-  using namespace js2c::scanner;
+#undef YY_DECL
+#define YY_DECL int js2c::Scanner::lex(js2c::Parser::semantic_type* yylval, js2c::Parser::location_type* loc)
+
+using token = js2c::Parser::token;
+
+#define YY_USER_ACTION loc->step(); loc->columns(yyleng);
 %}
 
-%option noyywrap
+%option c++ noyywrap
+%option yyclass="js2c::Scanner"
 
 white_space [\x09\x0B\x0C\x20]
 
@@ -41,11 +47,13 @@ string_literal a
 
 "break" {
   printf("<break>");
-  return Token::BREAK;
+  yylval->emplace<int>(10);
+  return token::BREAK;
 }
 
 "for" {
   printf("<for>");
+  return token::FOR;
 }
 
 "new" {

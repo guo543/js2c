@@ -6,8 +6,8 @@
   },
   {
     "directory": "/home/ranguo1108/projects/js2c",
-    "command": "g++ -I. -Wall -Werror -std=c++11 -g -c -o out/objs/scanner/flex_lexer.o src/scanner/flex_lexer.cc",
-    "file": "src/scanner/flex_lexer.cc"
+    "command": "g++ -I. -Wall -Werror -std=c++11 -g -c -o out/objs/parser/parser.o src/parser/parser.cc",
+    "file": "src/parser/parser.cc"
   },
   {
     "directory": "/home/ranguo1108/projects/js2c",

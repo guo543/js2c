@@ -1,10 +1,8 @@
-#include <FlexLexer.h>
-
-#include "src/scanner/token.h"
-
-using namespace js2c::scanner;
+#include "src/parser/parser.h"
+#include "src/scanner/scanner.h"
 
 int main() {
-  FlexLexer *flexer = new yyFlexLexer;
-  flexer->yylex();
+  js2c::Scanner scanner(&std::cin);
+  js2c::Parser parser(&scanner);
+  parser.parse();
 }
