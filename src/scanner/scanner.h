@@ -14,8 +14,8 @@ class Scanner : public yyFlexLexer {
  public:
   Scanner(std::istream* in) : yyFlexLexer(in) {}
 
-  int lex(js2c::Parser::semantic_type* yylval,
-          js2c::Parser::location_type* loc);
+  int lex(Parser::semantic_type* yylval,
+          Parser::location_type* loc);
 };
 
 }  // namespace js2c

@@ -7,5 +7,8 @@
 // Some other comment
 
 // Decimal Digits
-break for
-
+"'hell\\o  ' world'\""
+' \u0AB9hello \nworld\xAB'
+"";
+'';
+a <= b

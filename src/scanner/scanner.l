@@ -1,5 +1,6 @@
 %{
 #include <cstdio>
+#include <cstdlib>
 #include "src/scanner/scanner.h"
 
 #undef YY_DECL
@@ -13,23 +14,35 @@ using token = js2c::Parser::token;
 %option c++ noyywrap
 %option yyclass="js2c::Scanner"
 
-white_space [\x09\x0B\x0C\x20]
+white_space                  [\x09\x0B\x0C\x20]
 
-line_terminator [\x0A\x0D]
+line_terminator              [\x0A\x0D]
 
-comment ({multi_line_comment}|{single_line_comment})
+comment                      ({multi_line_comment})|({single_line_comment})
 
-multi_line_comment "/*"[^*]*("*"([^*/][^*]*)?)*"*/"
-single_line_comment "//"[^\x0A\x0D]*
+multi_line_comment           "/*"[^*]*("*"([^*/][^*]*)?)*"*/"
+single_line_comment          "//"[^\x0A\x0D]*
 
-identifier [a-zA-Z$_][a-zA-Z0-9$_]*
+identifier                   [a-zA-Z$_][a-zA-Z0-9$_]*
 
-decimal_literal ("0"|([1-9][0-9]*))?("."[0-9]*)?(("e"|"E")("+"|"-")?[0-9]*)?
+decimal_literal              ("0"|([1-9][0-9]*))?("."[0-9]*)?(("e"|"E")("+"|"-")?[0-9]*)?
 
-hex_integer_literal ("0x"|"0X")[0-9a-fA-F]+
-octal_integer_literal "0"[0-7]+
+hex_integer_literal          ("0x"|"0X")[0-9a-fA-F]+
+octal_integer_literal        "0"[0-7]+
 
-string_literal a
+string_literal               (\"{double_string_literal}\")|('{single_string_literal}')
+
+double_string_literal        (([^\"\\\x0A\x0D])|({escape_sequence}))*
+single_string_literal        (([^'\\\x0A\x0D])|({escape_sequence}))*
+
+escape_sequence              ({character_escape_sequence})|({octal_escape_sequence})|({hex_escape_sequence})|({unicode_escape_sequence})
+
+character_escape_sequence    \\(['\"\\bfnrt]|[^'\"\\bfnrt0-7xu\x0A\x0D])
+octal_escape_sequence        (\\[0-7])|(\\[0-7][0-7])|(\\[2-3][0-7][0-7])
+hex_escape_sequence          \\x[0-9a-fA-F][0-9a-fA-F]
+unicode_escape_sequence      \\u[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]
+
+
 
 %%
 
@@ -47,13 +60,12 @@ string_literal a
 
 "break" {
   printf("<break>");
-  yylval->emplace<int>(10);
-  return token::BREAK;
+  // return token::BREAK;
 }
 
 "for" {
   printf("<for>");
-  return token::FOR;
+  // return token::FOR;
 }
 
 "new" {
@@ -182,6 +194,7 @@ string_literal a
 
 "+" {
   printf("<add>");
+  // return token::ADD;
 }
 
 "-" {
@@ -300,6 +313,10 @@ string_literal a
   printf("<null>");
 }
 
+"undefined" {
+  printf("<undefined>");
+}
+
 "true" {
   printf("<true>");
 }
@@ -309,19 +326,26 @@ string_literal a
 }
 
 {decimal_literal} {
-  printf("<decimal: %s>", yytext);
+  printf("<decimal: %s>", YYText());
+  // char *endptr;
+  // yylval->emplace<double>(strtod(YYText(), &endptr));
+  // return token::NUMLIT;
 }
 
 {hex_integer_literal} {
-  printf("<hex: %s>", yytext);
+  printf("<hex: %s>", YYText());
 }
 
 {octal_integer_literal} {
-  printf("<octal: %s>", yytext);
+  printf("<octal: %s>", YYText());
 }
 
 {identifier} {
-  printf("<id: %s>", yytext);
+  printf("<id: %s>", YYText());
+}
+
+{string_literal} {
+  printf("<str: %s>", YYText());
 }
 
 %%
