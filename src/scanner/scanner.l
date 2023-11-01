@@ -1,4 +1,5 @@
 %{
+#include <iostream>
 #include <cstdio>
 #include <cstdlib>
 #include "src/scanner/scanner.h"
@@ -46,306 +47,175 @@ unicode_escape_sequence      \\u[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]
 
 %%
 
-{white_space} {
-  printf("<space>");
-}
-
-{line_terminator} {
-  printf("<newline>\n");
-}
-
-{comment} {
-  printf("<comment>");
-}
-
-"break" {
-  printf("<break>");
-  // return token::BREAK;
-}
-
-"for" {
-  printf("<for>");
-  // return token::FOR;
-}
-
-"new" {
-  printf("<new>");
-}
-
-"var" {
-  printf("<var>");
-}
-
-"continue" {
-  printf("<continue>");
-}
-
-"function" {
-  printf("<function>");
-}
-
-"return" {
-  printf("<return>");
-}
-
-"void" {
-  printf("<void>");
-}
-
-"delete" {
-  printf("<delete>");
-}
-
-"if" {
-  printf("<if>");
-}
-
-"this" {
-  printf("<this>");
-}
-
-"while" {
-  printf("<while>");
-}
-
-"else" {
-  printf("<else>");
-}
-
-"in" {
-  printf("<in>");
-}
-
-"typeof" {
-  printf("<typeof>");
-}
-
-"with" {
-  printf("<with>");
-}
-
-"=" {
-  printf("<assign>");
-}
-
-">" {
-  printf("<gt>");
-}
-
-"<" {
-  printf("<lt>");
-}
-
-"==" {
-  printf("<eq>");
-}
-
-"<=" {
-  printf("<le>");
-}
-
-">=" {
-  printf("<ge>");
-}
-
-"!=" {
-  printf("<ne>");
-}
-
-"," {
-  printf("<comma>");
-}
-
-"!" {
-  printf("<not>");
-}
-
-"~" {
-  printf("<bitnot>");
-}
-
-"?" {
-  printf("<ques>");
-}
-
-":" {
-  printf("<colon>");
-}
-
-"." {
-  printf("<dot>");
-}
-
-"&&" {
-  printf("<and>");
-}
-
-"||" {
-  printf("<or>");
-}
-
-"++" {
-  printf("<inc>");
-}
-
-"--" {
-  printf("<dec>");
-}
-
-"+" {
-  printf("<add>");
-  // return token::ADD;
-}
-
-"-" {
-  printf("<sub>");
-}
-
-"*" {
-  printf("<mul>");
-}
-
-"/" {
-  printf("<div>");
-}
-
-"&" {
-  printf("<bitand>");
-}
-
-"|" {
-  printf("<bitor>");
-}
-
-"^" {
-  printf("<bitxor>");
-}
-
-"%" {
-  printf("<mod>");
-}
-
-"<<" {
-  printf("<bitleftshift>");
-}
-
-">>" {
-  printf("<bitrightshift>");
-}
-
-">>>" {
-  printf("<biturightshift>");
-}
-
-"+=" {
-  printf("<addeq>");
-}
-
-"-=" {
-  printf("<subeq>");
-}
-
-"*=" {
-  printf("<muleq>");
-}
-
-"/=" {
-  printf("<diveq>");
-}
-
-"&=" {
-  printf("<bitandeq>");
-}
-
-"|=" {
-  printf("<bitoreq>");
-}
-
-"^=" {
-  printf("<bitxoreq>");
-}
-
-"%=" {
-  printf("<modeq>");
-}
-
-"<<=" {
-  printf("<bitleftshifteq>");
-}
-
-">>=" {
-  printf("<bitrightshifteq>");
-}
-
-">>>=" {
-  printf("<biturightshifteq>");
-}
-
-"(" {
-  printf("<leftparen>");
-}
-
-")" {
-  printf("<rightparen>");
-}
-
-"{" {
-  printf("<leftcbrac>");
-}
-
-"}" {
-  printf("<rightcbrac>");
-}
-
-"[" {
-  printf("<leftbrac>");
-}
-
-"]" {
-  printf("<rightbrac>");
-}
-
-";" {
-  printf("<semicolon>");
-}
-
-"null" {
-  printf("<null>");
-}
-
-"undefined" {
-  printf("<undefined>");
-}
-
-"true" {
-  printf("<true>");
-}
-
-"false" {
-  printf("<false>");
-}
+{white_space} {}
+
+{line_terminator} {}
+
+{comment} {}
+
+"break" { return token::BREAK; }
+
+"for" { return token::FOR; }
+
+"new" { return token::NEW; }
+
+"var" { return token::VAR; }
+
+"continue" { return token::CONTINUE; }
+
+"function" { return token::FUNCTION; }
+
+"return" { return token::RETURN; }
+
+"void" { return token::VOID; }
+
+"delete" { return token::DELETE; }
+
+"if" { return token::IF; }
+
+"this" { return token::THIS; }
+
+"while" { return token::WHILE; }
+
+"else" { return token::ELSE; }
+
+"in" { return token::IN; }
+
+"typeof" { return token::TYPEOF; }
+
+"with" { return token::WITH; }
+
+"=" { return token::ASSIGN; }
+
+">" { return token::GT; }
+
+"<" { return token::LT; }
+
+"==" { return token::EQUAL; }
+
+"<=" { return token::LE; }
+
+">=" { return token::GE; }
+
+"!=" { return token::NE; }
+
+"," { return token::COMMA; }
+
+"!" { return token::NOT; }
+
+"~" { return token::BITNOT; }
+
+"?" { return token::QUES; }
+
+":" { return token::COLON; }
+
+"." { return token::DOT; }
+
+"&&" { return token::AND; }
+
+"||" { return token::OR; }
+
+"++" { return token::INC; }
+
+"--" { return token::DEC; }
+
+"+" { return token::ADD; }
+
+"-" { return token::SUB; }
+
+"*" { return token::MUL; }
+
+"/" { return token::DIV; }
+
+"&" { return token::BITAND; }
+
+"|" { return token::BITOR; }
+
+"^" { return token::BITXOR; }
+
+"%" { return token::MOD; }
+
+"<<" { return token::LSHIFT; }
+
+">>" { return token::RSHIFT; }
+
+">>>" { return token::URSHIFT; }
+
+"+=" { return token::ADDEQ; }
+
+"-=" { return token::SUBEQ; }
+
+"*=" { return token::MULEQ; }
+
+"/=" { return token::DIVEQ; }
+
+"&=" { return token::BITANDEQ; }
+
+"|=" { return token::BITOREQ; }
+
+"^=" { return token::BITXOREQ; }
+
+"%=" { return token::MODEQ; }
+
+"<<=" { return token::LSHIFTEQ; }
+
+">>=" { return token::RSHIFTEQ; }
+
+">>>=" { return token::URSHIFTEQ; }
+
+"(" { return token::LPAREN; }
+
+")" { return token::RPAREN; }
+
+"{" { return token::LCBRACKET; }
+
+"}" { return token::RCBRACKET; }
+
+"[" { return token::LBRACKET; }
+
+"]" { return token::RBRACKET; }
+
+";" { return token::SEMICOLON; }
+
+"null" { return token::NULLLIT; }
+
+"undefined" { return token::UNDEFLIT; }
+
+"true" { yylval->emplace<bool>(true); return token::BOOLLIT; }
+
+"false" { yylval->emplace<bool>(false); return token::BOOLLIT; }
 
 {decimal_literal} {
-  printf("<decimal: %s>", YYText());
-  // char *endptr;
-  // yylval->emplace<double>(strtod(YYText(), &endptr));
-  // return token::NUMLIT;
+  char *endptr;
+  yylval->emplace<double>(strtod(YYText(), &endptr));
+  std::cout << strtod(YYText(), &endptr) << "\n";
+  return token::NUMLIT;
 }
 
 {hex_integer_literal} {
-  printf("<hex: %s>", YYText());
+  char *endptr;
+  yylval->emplace<double>(strtod(YYText(), &endptr));
+  std::cout << strtod(YYText(), &endptr) << "\n";
+  return token::NUMLIT;
 }
 
 {octal_integer_literal} {
-  printf("<octal: %s>", YYText());
+  char *endptr;
+  yylval->emplace<double>(strtod(YYText(), &endptr));
+  std::cout << strtod(YYText(), &endptr) << "\n";
+  return token::NUMLIT;
 }
 
 {identifier} {
-  printf("<id: %s>", YYText());
+  yylval->emplace<std::string>(yytext);
+  return token::IDENTIFIER;
 }
 
 {string_literal} {
-  printf("<str: %s>", YYText());
+  char* str = strdup(YYText() + 1);
+  str[strlen(str) - 1] = '\0';
+  yylval->emplace<std::string>(str);
+  return token::STRINGLIT;
 }
 
 %%
