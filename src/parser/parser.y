@@ -155,6 +155,7 @@ unary_expression              :    postfix_expression
                               |    SUB unary_expression
                               |    BITNOT unary_expression
                               |    NOT unary_expression
+                              ;
 
 multiplicative_expression     :    unary_expression
                               |    multiplicative_expression MUL unary_expression
@@ -203,6 +204,7 @@ logical_and_expression        :    bitwise_or_expression
 
 logical_or_expression         :    logical_and_expression
                               |    logical_or_expression OR logical_and_expression
+                              ;
 
 conditional_expression        :    logical_or_expression
                               |    logical_or_expression QUES assignment_expression COLON assignment_expression
@@ -210,6 +212,7 @@ conditional_expression        :    logical_or_expression
 
 assignment_expression         :    conditional_expression
                               |    left_hand_side_expression assignment_operator assignment_expression
+                              ;
 
 assignment_operator           :    ASSIGN
                               |    MULEQ
